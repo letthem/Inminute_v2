@@ -4,8 +4,9 @@ import "./globals.css";
 import Link from "next/link";
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import LogoutBtn from "./LogoutBtn";
-import LoginBtn from "./LoginBtn";
+import LogoutBtn from "./components/LogoutBtn";
+import LoginBtn from "./components/LoginBtn";
+import Navbar from "./components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,29 +27,8 @@ export default async function RootLayout({
       <body
         className={`bg-customBg min-h-screen flex flex-col ${inter.className}`}
       >
-        <div className="bg-white flex items-center justify-between p-4 border-1 border-solid border-customGray">
-          <div className="flex">
-            <Link href="/" className="logo">
-              <img className="w-36" src="/logo_transparent.svg" />
-            </Link>
-
-            <ul className="flex">
-              <li className="mx-4">about</li>
-              <li>list</li>
-            </ul>
-          </div>
-
-          {session ? (
-            <span>
-              {session.user?.name}
-              <LogoutBtn />
-            </span>
-          ) : (
-            <LoginBtn />
-          )}
-
-          {children}
-        </div>
+        <Navbar session={session} />
+        {children}
       </body>
     </html>
   );
